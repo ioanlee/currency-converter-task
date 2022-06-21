@@ -1,5 +1,5 @@
 # currency-converter-task
-Do a currency converter app task
+Do a currency converter app task with React
 
 ## Описание задачи
 
