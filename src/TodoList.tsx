@@ -1,9 +1,14 @@
-import React from 'react'
+import { Todo } from './Todo'
 
-export default function TodoList() {
+interface props {
+  text: string
+}
+
+export const TodoList:React.FC<props> = (props) => {
   return (
-    <>
-
-    </>
+    <div>
+      {props.text}
+      
+    </div>
   )
 }
