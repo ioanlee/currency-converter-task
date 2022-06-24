@@ -13,7 +13,7 @@ export const CurrConverter = ({ currencyOptions }: Props) => {
   const [amount, setAmount] = useState(1)
   const [fromCurrency, setFromCurrency] = useState('USD')
   const [toCurrency, setToCurrency] = useState('RUB')
-  const [exchangeRate, setExchangeRate] = useState(1)
+  const [exchangeRate, setExchangeRate] = useState(1) //useState(1 / currencyOptions[fromCurrency] * currencyOptions[toCurrency])
   const [isFromAmount, setIsFromAmount] = useState(true)
 
   // default value in useState() outputs NaN, this is a workaround
@@ -38,18 +38,10 @@ export const CurrConverter = ({ currencyOptions }: Props) => {
     setFromCurrency(toCurrency)
     setToCurrency(saved)
   }
-  const handleChangeToAmount = (e) => {
-    setAmount(e.target.value)
-    setIsFromAmount(false)
-    //console.log(e.target.value)
-  }
-  const handleChangeFromAmount = (e) => {
-    setAmount(e.target.value)
-    setIsFromAmount(true)
-    //console.log(e.target.value)
-  }
-  const handleChangeToCurrency = (e) => setToCurrency(e.target.value)
-  const handleChangeFromCurrency = (e) => setFromCurrency(e.target.value)
+  const handleChangeToAmount = (e: any) => { setAmount(e.target.value); setIsFromAmount(false) }
+  const handleChangeFromAmount = (e: any) => { setAmount(e.target.value); setIsFromAmount(true) }
+  const handleChangeToCurrency = (e: any) => setToCurrency(e.target.value)
+  const handleChangeFromCurrency = (e: any) => setFromCurrency(e.target.value)
 
   return (
     <div>

@@ -32,8 +32,8 @@ function App() {
       <CurrConverter currencyOptions={currencyOptions}/>
       <button onClick={() => setShowTable(!showTable)}>Toggle Table</button>
       <button onClick={() => setShowHistory(!showHistory)}>Toggle History</button>
-      { showTable && <CurrTable /> }
       { showHistory && <CurrHistory /> }
+      { showTable && <CurrTable /> }
     </>
   )
 }  

@@ -1,10 +1,10 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, FunctionComponentFactory, useEffect } from 'react'
 
 interface Props {
   amount: number,
   selected: string
-  onChangeAmount: {}
-  onChangeCurrency: {}
+  onChangeAmount: any
+  onChangeCurrency: any
   currencyOptions: {[key: string]: number}
 }
 
@@ -21,7 +21,7 @@ export const CurrConverterRow = (props: Props) => {
     <div>
       <input type="number" value={amount} onChange={onChangeAmount}/>
       <select value={selected} onChange={onChangeCurrency}>
-        {Object.entries(currencyOptions).map(option => <option value={option[0]}>{option[0]}</option>)}
+        {Object.keys(currencyOptions).map(value => <option value={value}>{value}</option>)}
       </select>
     </div>
   )
