@@ -21,9 +21,7 @@ export const CurrConverterRow = (props: Props) => {
     <div>
       <input type="number" value={amount} onChange={onChangeAmount}/>
       <select value={selected} onChange={onChangeCurrency}>
-        {Object.entries(currencyOptions).map(option => 
-          <option value={option[0]}>{option[0]}</option>
-        )}
+        {Object.entries(currencyOptions).map(option => <option value={option[0]}>{option[0]}</option>)}
       </select>
     </div>
   )

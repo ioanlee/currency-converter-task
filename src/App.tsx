@@ -17,9 +17,6 @@ function App() {
     setCurrencyOptions(JSON.parse(raw))
     // console.log(JSON.parse(raw))
     // need to provide unix time var to compare current time and trigger fetch
-  }, [])
-
-  useEffect(() => {
     if (currencyOptions === {}) { // delete later
       fetch(base_url)
         .then(res => res.json())

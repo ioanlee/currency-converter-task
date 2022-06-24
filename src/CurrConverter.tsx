@@ -12,24 +12,24 @@ export const CurrConverter = ({ currencyOptions }: Props) => {
   // const [fromAmount, setFromAmount] = useState(1)
   // const [toAmount, setToAmount] = useState(1)
   const [amount, setAmount] = useState(1)
-  const [fromCurrency, setFromCurrency] = useState('')
-  const [toCurrency, setToCurrency] = useState('')
-  const [exchangeRate, setExchangeRate] = useState(1)
+  const [fromCurrency, setFromCurrency] = useState('USD')
+  const [toCurrency, setToCurrency] = useState('RUB')
+  const [exchangeRate, setExchangeRate] = useState(currencyOptions[toCurrency])
   const [isFromAmount, setIsFromAmount] = useState(true)
   
-  useEffect(() => {
-    setFromCurrency(Object.keys(currencyOptions)[0])
-    setToCurrency(Object.keys(currencyOptions)[1])
-    setExchangeRate(currencyOptions[toCurrency])
-  }, [])
+  // useEffect(() => {
+  //   setExchangeRate(currencyOptions[toCurrency])
+  // }, [])
 
-  let fromAmount:number, toAmount:number
-  if (isFromAmount) {
-    fromAmount = Number(amount)
-    toAmount = Number((amount * exchangeRate).toFixed(2))
-  } else {
-    toAmount = Number(amount)
-    fromAmount = Number((amount / exchangeRate).toFixed(2))
+  let fromAmount:number = 1, toAmount:number
+  if (exchangeRate) {
+    if (isFromAmount) {
+      fromAmount = Number(amount)
+      toAmount = Number((amount * exchangeRate).toFixed(2))
+    } else {
+      toAmount = Number(amount)
+      fromAmount = Number((amount / exchangeRate).toFixed(2))
+    }
   }
 
   useEffect(() => {
