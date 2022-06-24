@@ -1,3 +1,4 @@
+import { divide, runInContext } from 'lodash'
 import React, { FC, useEffect, useState } from 'react'
 import { CurrConverterRow } from './CurrConverterRow'
 
@@ -9,69 +10,46 @@ interface Props {
 
 export const CurrConverter = ({ currencyOptions }: Props) => {
 
-  // const [fromAmount, setFromAmount] = useState(1)
-  // const [toAmount, setToAmount] = useState(1)
   const [amount, setAmount] = useState(1)
   const [fromCurrency, setFromCurrency] = useState('USD')
   const [toCurrency, setToCurrency] = useState('RUB')
-  const [exchangeRate, setExchangeRate] = useState(currencyOptions[toCurrency])
+  const [exchangeRate, setExchangeRate] = useState(1)
   const [isFromAmount, setIsFromAmount] = useState(true)
-  
-  // useEffect(() => {
-  //   setExchangeRate(currencyOptions[toCurrency])
-  // }, [])
 
-  let fromAmount:number = 1, toAmount:number
-  if (exchangeRate) {
-    if (isFromAmount) {
-      fromAmount = Number(amount)
-      toAmount = Number((amount * exchangeRate).toFixed(2))
-    } else {
-      toAmount = Number(amount)
-      fromAmount = Number((amount / exchangeRate).toFixed(2))
-    }
+  // default value in useState() outputs NaN, this is a workaround
+  if (isNaN(exchangeRate)) setExchangeRate(1 / currencyOptions[fromCurrency] * currencyOptions[toCurrency]) 
+
+  let fromAmount:number, toAmount:number
+  if (isFromAmount) {
+    fromAmount = amount
+    toAmount = Number((amount * exchangeRate).toFixed(2))
+  } else {
+    toAmount = amount
+    fromAmount = Number((amount / exchangeRate).toFixed(2))
   }
 
   useEffect(() => {
-    if (fromCurrency && toCurrency) {
-      setIsFromAmount(false)
-      setExchangeRate(currencyOptions[fromCurrency])
-    }
-  }, [fromCurrency])
-  
-  useEffect(() => {
-    if (fromCurrency && toCurrency) {
-      setIsFromAmount(true)
-      setExchangeRate(currencyOptions[toCurrency])
-    }
-  }, [toCurrency])
+    setExchangeRate(1 / currencyOptions[fromCurrency] * currencyOptions[toCurrency])
+    toAmount = fromAmount / currencyOptions[fromCurrency] * currencyOptions[toCurrency]
+  }, [toCurrency, fromCurrency])
 
   function reverse() {
-
-    // setIsFromAmount(!isFromAmount)
-    // const saved = fromCurrency
-    // setFromCurrency(toCurrency)
-    // setToCurrency(saved)
-
-
-    // console.log({ fromCurrency, toCurrency, amount, fromAmount, toAmount, exchangeRate })
-    // (isFromAmount) ? {setAmount(toAmount)} : {setAmount(fromAmount)}
-    // setExchangeRate(1 / currencyOptions[fromCurrency] * currencyOptions[toCurrency])
+    const saved = fromCurrency
+    setFromCurrency(toCurrency)
+    setToCurrency(saved)
   }
   const handleChangeToAmount = (e) => {
     setAmount(e.target.value)
     setIsFromAmount(false)
+    //console.log(e.target.value)
   }
   const handleChangeFromAmount = (e) => {
     setAmount(e.target.value)
     setIsFromAmount(true)
+    //console.log(e.target.value)
   }
-  const handleChangeToCurrency = (e) => {
-    setToCurrency(e.target.value)
-  }
-  const handleChangeFromCurrency = (e) => {
-    setFromCurrency(e.target.value)
-  }
+  const handleChangeToCurrency = (e) => setToCurrency(e.target.value)
+  const handleChangeFromCurrency = (e) => setFromCurrency(e.target.value)
 
   return (
     <div>
