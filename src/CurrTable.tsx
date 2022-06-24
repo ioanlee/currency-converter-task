@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { CurrTableList } from './CurrTableList'
+import { CurrTableGraph } from './CurrTableGraph'
 
 export const CurrTable = () => {
 
