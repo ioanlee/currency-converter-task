@@ -1,23 +1,41 @@
-import React, { useState, useEffect } from 'react'
-import { CurrTableList } from './CurrTableList'
-import { CurrTableGraph } from './CurrTableGraph'
+import { useState, useEffect } from 'react'
 
-export const CurrTable = () => {
+interface Props {
+  currencyOptions: {    
+    [key: string]: number
+  }
+}
 
-  const [showListOverGraph, setShowListOverGraph] = useState(true)
+export const CurrTable = ({ currencyOptions }: Props) => {
 
-  useEffect(() => {
-    console.log('triggered')
+  const [ fromCurrency, setFromCurrency ] = useState('USD')
+  const [ toCurrency, setToCurrency ] = useState('USD')
+  const [ exchangeRate, setExchangeRate ] = useState(1)
+  const template = [ 1, 5, 10, 25, 50, 100, 500, 1000, 5000 ]
 
-  }, [showListOverGraph])
+  useEffect(() => {    
+    setExchangeRate(1 / currencyOptions[fromCurrency] * currencyOptions[toCurrency])
+  }, [fromCurrency, toCurrency])
 
   return (
     <div>
       <hr />
       <h2>Table</h2>
-      <button onClick={() => setShowListOverGraph(!showListOverGraph)}>Show {(showListOverGraph) ? 'Graph' : 'List'}</button>
-      {showListOverGraph && <div>List</div>}
-      {!showListOverGraph && <div>Graph</div>}
+      
+      <div style={{display: 'flex', gap: '10px', padding: '0 0 10px'}}>
+        <select defaultValue={fromCurrency} onChange={(e) => setFromCurrency(e.target.value)}>
+          {Object.keys(currencyOptions).map(value => <option value={value}>{value}</option>)}
+        </select>
+        <select defaultValue={toCurrency} onChange={(e) => setToCurrency(e.target.value)}>
+          {Object.keys(currencyOptions).map(value => <option value={value}>{value}</option>)}
+        </select>
+      </div>
+      
+      <div style={{display: 'flex', gap: '10px'}}>
+        <div>{ template.map(value => <div>{value} {fromCurrency} = {Number((value * exchangeRate).toFixed(2))} {toCurrency}</div>) }</div>
+        <div>{ template.map(value => <div>{value} {toCurrency} = {Number((value / exchangeRate).toFixed(2))} {fromCurrency}</div>) }</div>
+      </div>
+
     </div>
   )
 }
