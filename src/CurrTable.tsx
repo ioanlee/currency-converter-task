@@ -24,16 +24,16 @@ export const CurrTable = ({ currencyOptions }: Props) => {
       
       <div style={{display: 'flex', gap: '10px', padding: '0 0 10px'}}>
         <select defaultValue={fromCurrency} onChange={(e) => setFromCurrency(e.target.value)}>
-          {Object.keys(currencyOptions).map(value => <option value={value}>{value}</option>)}
+          {Object.keys(currencyOptions).map((value, pos) => <option key={pos} value={value}>{value}</option>)}
         </select>
         <select defaultValue={toCurrency} onChange={(e) => setToCurrency(e.target.value)}>
-          {Object.keys(currencyOptions).map(value => <option value={value}>{value}</option>)}
+          {Object.keys(currencyOptions).map((value, pos) => <option key={pos} value={value}>{value}</option>)}
         </select>
       </div>
       
       <div style={{display: 'flex', gap: '10px'}}>
-        <div>{ template.map(value => <div>{value} {fromCurrency} = {Number((value * exchangeRate).toFixed(2))} {toCurrency}</div>) }</div>
-        <div>{ template.map(value => <div>{value} {toCurrency} = {Number((value / exchangeRate).toFixed(2))} {fromCurrency}</div>) }</div>
+        <div>{ template.map((value, pos) => <div key={pos}>{value} {fromCurrency} = {Number((value * exchangeRate).toFixed(2))} {toCurrency}</div>) }</div>
+        <div>{ template.map((value, pos) => <div key={pos}>{value} {toCurrency} = {Number((value / exchangeRate).toFixed(2))} {fromCurrency}</div>) }</div>
       </div>
 
     </div>

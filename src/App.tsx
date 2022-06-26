@@ -9,7 +9,7 @@ const base_url = `https://v6.exchangerate-api.com/v6/${api_key}/latest/USD`
 
 function App() {
 
-  const [showTable, setShowTable] = useState(true)
+  const [showTable, setShowTable] = useState(false)
   const [showHistory, setShowHistory] = useState(true)
   const [currencyOptions, setCurrencyOptions] = useState(rates_archive[0].rates)
 
@@ -32,10 +32,10 @@ function App() {
   return (
     <>
       <CurrConverter currencyOptions={ currencyOptions }/>
-      {/* <button onClick={ () => setShowTable(!showTable) } >Toggle Table</button> */}
-      {/* <button onClick={ () => setShowHistory(!showHistory) } >Toggle History</button> */}
-      { showTable && <CurrTable currencyOptions={currencyOptions}/> }
-      { showHistory && <CurrHistory /> }
+      <button onClick={ () => setShowTable(!showTable) } >Toggle Table</button>
+      <button onClick={ () => setShowHistory(!showHistory) } >Toggle History</button>
+      { showTable && <CurrTable currencyOptions={currencyOptions} /> }
+      { showHistory && <CurrHistory currencyOptions={currencyOptions} /> }
     </>
   )
 }  
