@@ -43,6 +43,8 @@ export const CurrHistory = ({ currencyOptions }: Props) => {
   const [ historyArray, setHistory_array ] = useState(rates_archive.slice(0, 10).map(arr => { return { exchange_rate: (arr.rates['RUB'] / arr.rates['USD']).toFixed(4), timestamp: convertTimestamp(arr.timestamp), }}))
 
   useEffect(() => {
+    let from = fromCurrency,
+        to = toCurrency
     setHistory_array(rates_archive.slice(0, 10).map(arr => {return { timestamp: convertTimestamp(arr.timestamp), exchange_rate: (arr.rates[toCurrency] / arr.rates[fromCurrency]).toFixed(4) }}))
   }, [ fromCurrency, toCurrency ])
 

@@ -1,4 +1,3 @@
-
 // lets imagine that we have each fetch saved to db
 export let rates_archive = [
   {
