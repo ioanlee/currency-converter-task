@@ -49,8 +49,7 @@ export const CurrHistory = ({ currencyOptions }: Props) => {
   }, [ fromCurrency, toCurrency ])
 
   return (
-    <div>
-      <hr />
+    <div className='currency-section'>
       <h2>History</h2>
 
       <div style={{display: 'flex', gap: '10px', padding: '0 0 10px'}}>
@@ -64,9 +63,9 @@ export const CurrHistory = ({ currencyOptions }: Props) => {
 
       <button onClick={() => setShowListOverGraph(!showListOverGraph)}>Show {(showListOverGraph) ? 'Graph' : 'List'}</button>
       {!showListOverGraph && <>
-        <div style={{ height: '200px' }}>
+        <div style={{ height: '300px' }}>
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart width={500} height={300} data={historyArray} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <LineChart width={500} height={300} data={historyArray} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="timestamp" />
             <YAxis domain={[ Math.min(...historyArray.map(entry => Number(entry.exchange_rate))), Math.max(...historyArray.map(entry => Number(entry.exchange_rate))) ]} />
@@ -77,8 +76,7 @@ export const CurrHistory = ({ currencyOptions }: Props) => {
         </ResponsiveContainer>
       </div>
       </>}
-      {showListOverGraph && <>
-        <div>CurrTableList</div>       
+      {showListOverGraph && <>      
         <div>{fromCurrency} to {toCurrency}</div>
         { historyArray.map((value, pos) => <>
           <div key={pos}>{ value.timestamp } - { value.exchange_rate }</div>

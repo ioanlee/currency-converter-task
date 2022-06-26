@@ -3,6 +3,8 @@ import { CurrTable } from './CurrTable'
 import { CurrHistory } from './CurrHistory'
 import { CurrConverter } from './CurrConverter'
 import { rates_archive } from './db'
+import './reset.css'
+import './App.css'
 
 const api_key = 'e00d572a1a7549f32b011fea' // include in .gitignore
 const base_url = `https://v6.exchangerate-api.com/v6/${api_key}/latest/USD`
@@ -10,7 +12,7 @@ const base_url = `https://v6.exchangerate-api.com/v6/${api_key}/latest/USD`
 function App() {
 
   const [showTable, setShowTable] = useState(false)
-  const [showHistory, setShowHistory] = useState(true)
+  const [showHistory, setShowHistory] = useState(false)
   const [currencyOptions, setCurrencyOptions] = useState(rates_archive[0].rates)
 
   // useEffect(() => {
@@ -29,14 +31,14 @@ function App() {
   //   // }
   // }, [])
 
-  return (
-    <>
-      <CurrConverter currencyOptions={ currencyOptions }/>
+  return ( 
+    <div className='App'>
       <button onClick={ () => setShowTable(!showTable) } >Toggle Table</button>
       <button onClick={ () => setShowHistory(!showHistory) } >Toggle History</button>
+      <CurrConverter currencyOptions={ currencyOptions }/>
       { showTable && <CurrTable currencyOptions={currencyOptions} /> }
       { showHistory && <CurrHistory currencyOptions={currencyOptions} /> }
-    </>
+    </div>
   )
 }  
 

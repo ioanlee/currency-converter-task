@@ -44,7 +44,7 @@ export const CurrConverter = ({ currencyOptions }: Props) => {
   const handleChangeFromCurrency = (e: any) => setFromCurrency(e.target.value)
 
   return (
-    <div>
+    <div className='currency-section'>
       <h2>Converter</h2>
       <CurrConverterRow 
         amount={fromAmount}

@@ -18,8 +18,7 @@ export const CurrTable = ({ currencyOptions }: Props) => {
   }, [fromCurrency, toCurrency])
 
   return (
-    <div>
-      <hr />
+    <div className='currency-section'>
       <h2>Table</h2>
       
       <div style={{display: 'flex', gap: '10px', padding: '0 0 10px'}}>
